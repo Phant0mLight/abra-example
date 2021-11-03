@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpHeaders} from "@angular/common/http";
 
 @Component({
   selector: 'app-root',
@@ -11,7 +11,8 @@ export class AppComponent {
   msg: any;
 
   constructor(httpClient: HttpClient) {
-    httpClient.get("localhost:8080/hello").subscribe(
+    const headers = new HttpHeaders().set('Content-Type', 'text/plain; charset=utf-8');
+    httpClient.get("http://localhost:8080/hello", {headers, responseType: 'text'}).subscribe(
       msg => {
         this.msg = msg;
       }, error => {
